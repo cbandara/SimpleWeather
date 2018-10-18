@@ -10,56 +10,32 @@ function zipCodeToLocation(zip) {
   $.getJSON(zipLink,function(data) {
   let longitude = data.lng;
   let latitude = data.lat;
-  darkSkyAPI(latitude, longitude);
+  let city = data.city;
+  let state = data.state;
+  darkSkyAPI(latitude, longitude, city, state);
   });
   console.log("After sending request");
 }
 
-function darkSkyAPI(lat,lng) {
+function darkSkyAPI(lat,lng, city, state) {
   const darkLink = `https://cors.io/?https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}`;
   $.getJSON(darkLink, function(forecast) {
     let icon = forecast.currently.icon;
     let temp = forecast.currently.temperature;
-    let humidity = forecast.currently.humidity;
+    let humidity = forecast.currently.humidity * 100;
     let dewPoint = forecast.currently.dewPoint;
     let windSpeed = forecast.currently.windSpeed;
+    let precip = forecast.currently.precipProbability * 100;
     // Add Wind Direction
-    getWeatherHTMLString(icon, temp, humidity, dewPoint, windSpeed);
+    
+    var skycons = new Skycons({"color": "pink"});
+    skycons.add("icon1", Skycons.icon);
+    skycons.play();
+
+    renderPageHTML(getWeatherHTMLString(city, state, icon, temp, humidity, dewPoint, windSpeed, precip));
   })
   
 }
-
-// Connect skycons to HTML
-function skycons() {
-  var i,
-      icons = new Skycons({
-          "color" : "#FFFFFF",
-      }),
-      list  = [ // listing of all possible icons
-          "clear-day",
-          "clear-night",
-          "partly-cloudy-day",
-          "partly-cloudy-night",
-          "cloudy",
-          "rain",
-          "sleet",
-          "snow",
-          "wind",
-          "fog"
-      ];
-
-  for(i = list.length; i--;) {
-    var weatherType = list[i],
-          elements = document.getElementsByClassName(weatherType);
-
-    for (e = elements.length; e--;) {
-      icons.set(elements[e], weatherType);
-    }
-  }
-  icons.play();
-}
-
-
 
 function renderPageHTML(htmlString) {
   $(`.content`).html(htmlString);
@@ -80,8 +56,36 @@ function getStartHtmlString() {
   </section>`
 }
 
-function getWeatherHTMLString(icon, temp, humidity, dewPoint, windSpeed) {
-  console.log(icon, temp, humidity, dewPoint, windSpeed);
+function getWeatherHTMLString(city, state, icon, temp, humidity, dewPoint, windSpeed, precip) {
+  // Add Skycons
+  // Add Wind Direction
+  return `
+  <section class="weather-page">
+    <button type="button">Back</button>
+    <h1>Location</h1>
+    <p>${city}, ${state}</p>
+    <div class="box">
+      <p>${icon}</p>
+      <canvas id="icon1" width="250" height="250"></canvas>
+    </div>
+    <div class="box">
+      <h2>Temperature</h2>
+      <p>${temp} °F</p>
+    </div>
+    <div class="box">
+      <h2>Humidity</h2>
+      <p>${humidity}%</p>
+      <h2>Dew Point</h2>
+      <p>${dewPoint} °F</p>
+    </div>
+    <div class="box">
+      <h2>Wind</h2>
+      <p>${windSpeed}</p>
+      <h2>Precipitation</h2>
+      <p>${precip}%</p>
+    </div>
+  </section>
+  `
 }
 
 function loadStartPage() {
@@ -105,6 +109,3 @@ $(function onLoad() {
 // handle submit button
 // Load start page
 // handle back button
-
-
-// STORE
