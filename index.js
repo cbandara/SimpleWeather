@@ -20,7 +20,7 @@ function zipCodeToLocation(zip) {
 function darkSkyAPI(lat,lng, city, state) {
   const darkLink = `https://cors.io/?https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}`;
   $.getJSON(darkLink, function(forecast) {
-    let icon = forecast.currently.icon;
+    let icn = forecast.currently.icon;
     let temp = forecast.currently.temperature;
     let humidity = forecast.currently.humidity * 100;
     let dewPoint = forecast.currently.dewPoint;
@@ -29,10 +29,13 @@ function darkSkyAPI(lat,lng, city, state) {
     // Add Wind Direction
     
     var skycons = new Skycons({"color": "pink"});
-    skycons.add("icon1", Skycons.icon);
+    skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+    console.log(icn)
+    console.log(Skycons.PARTLY_CLOUDY_DAY)
+  
     skycons.play();
 
-    renderPageHTML(getWeatherHTMLString(city, state, icon, temp, humidity, dewPoint, windSpeed, precip));
+    renderPageHTML(getWeatherHTMLString(city, state, icn, temp, humidity, dewPoint, windSpeed, precip));
   })
   
 }
@@ -56,7 +59,7 @@ function getStartHtmlString() {
   </section>`
 }
 
-function getWeatherHTMLString(city, state, icon, temp, humidity, dewPoint, windSpeed, precip) {
+function getWeatherHTMLString(city, state, icn, temp, humidity, dewPoint, windSpeed, precip) {
   // Add Skycons
   // Add Wind Direction
   return `
@@ -65,8 +68,8 @@ function getWeatherHTMLString(city, state, icon, temp, humidity, dewPoint, windS
     <h1>Location</h1>
     <p>${city}, ${state}</p>
     <div class="box">
-      <p>${icon}</p>
-      <canvas id="icon1" width="250" height="250"></canvas>
+      <p>${icn}</p>
+      <canvas id="icon1" width="175" height="175"></canvas>
     </div>
     <div class="box">
       <h2>Temperature</h2>
@@ -99,13 +102,9 @@ function handleFormSubmit(event) {
   zipCodeToLocation(zipCode);
 }
 
-// Event Handlers
 $(function onLoad() { 
   loadStartPage();
   $(`.content`).on('submit', '.location-form', handleFormSubmit)
+  // Back button
   
 })
-// Listen for user's currentLocation
-// handle submit button
-// Load start page
-// handle back button
