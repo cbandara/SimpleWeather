@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR|Source+Sans+Pro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main role="main" aria-live="assertive" hidden>
+    
+        <div class="content">
+          <section class="start-page">
+            <h1>Simple Weather</h1>
+            <form class="location-form">
+              <label for="location">Enter Zip Code</label>
+              <input type="text" id="location">
+              <button type="submit">Search</button>
+              <div role="alert">
+                <p>Unable to submit request</p>
+              </div>
+            </form>
+            
+          </section>
+
+          <section class="weather-page">
+            <button type="button">Back</button>
+            <h1>Location</h1>
+            <div class="box">
+              <img src="" alt="">
+            </div>
+            <div class="box">
+              <h2>Temperature</h2>
+              <p>76 °F</p>
+            </div>
+            <div class="box">
+              <h2>Humidity</h2>
+              <p>70%</p>
+              <h2>Dew Point</h2>
+              <p>70 °F</p>
+            </div>
+            <div class="box">
+              <h2>Wind</h2>
+              <p>5 MPH SW</p>
+              <h2>Precipitation</h2>
+              <p>0%</p>
+            </div>
+          </section>
+        
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
