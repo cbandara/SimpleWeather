@@ -14,7 +14,6 @@ function zipCodeToLocation(zip) {
   let state = data.state;
   darkSkyAPI(latitude, longitude, city, state);
   });
-  console.log("After sending request");
 }
 
 function darkSkyAPI(lat,lng, city, state) {
@@ -28,21 +27,20 @@ function darkSkyAPI(lat,lng, city, state) {
     let precip = forecast.currently.precipProbability * 100;
     // Add Wind Direction
     
-    var skycons = new Skycons({"color": "pink"});
-    skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
-    console.log(icn)
-    console.log(Skycons.PARTLY_CLOUDY_DAY)
-  
-    skycons.play();
+    renderPageHTML(getWeatherHTMLString(city, state, temp, humidity, dewPoint, windSpeed, precip));
 
-    renderPageHTML(getWeatherHTMLString(city, state, icn, temp, humidity, dewPoint, windSpeed, precip));
-  })
-  
+    renderIcon(icn);
+  })  
+}
+
+function renderIcon(icn) {
+  let skycons = new Skycons({"color": "white"});
+  skycons.add("icon1", icn);
+  skycons.play();
 }
 
 function renderPageHTML(htmlString) {
   $(`.content`).html(htmlString);
-  
 }
 
 function getStartHtmlString() {
@@ -59,17 +57,16 @@ function getStartHtmlString() {
   </section>`
 }
 
-function getWeatherHTMLString(city, state, icn, temp, humidity, dewPoint, windSpeed, precip) {
+function getWeatherHTMLString(city, state, temp, humidity, dewPoint, windSpeed, precip) {
   // Add Skycons
   // Add Wind Direction
   return `
   <section class="weather-page">
-    <button type="button">Back</button>
+    <button type="button" class="back-btn">Back</button>
     <h1>Location</h1>
     <p>${city}, ${state}</p>
     <div class="box">
-      <p>${icn}</p>
-      <canvas id="icon1" width="175" height="175"></canvas>
+      <canvas id="icon1" width="125" height="125"></canvas>
     </div>
     <div class="box">
       <h2>Temperature</h2>
@@ -87,8 +84,7 @@ function getWeatherHTMLString(city, state, icn, temp, humidity, dewPoint, windSp
       <h2>Precipitation</h2>
       <p>${precip}%</p>
     </div>
-  </section>
-  `
+  </section>`
 }
 
 function loadStartPage() {
@@ -105,6 +101,5 @@ function handleFormSubmit(event) {
 $(function onLoad() { 
   loadStartPage();
   $(`.content`).on('submit', '.location-form', handleFormSubmit)
-  // Back button
-  
+  $(`.content`).on('click', '.back-btn', loadStartPage)
 })

@@ -1,6 +1,44 @@
+body {
+  padding-top: 40px;
+  background: #240b36;
+  color: #FAFAFA;
+  font-family: 'Source Sans Pro', sans-serif;
+ }
+
 .content {
   margin: auto;
   height: 100%;
   padding: 30px;
   max-width: 600px;
+}
+ /* Button not working */
+.back-btn {
+  font-size: 20px;
+  border-color: white;
+  background-color: #2c0d42;
+  color: #FAFAFA;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 15px;
+}
+
+h1 {
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: center;
+}
+
+p {
+  font-family: 'Source Code Pro', monospace;
+}
+
+label {
+  text-align: center;
+  font-size: 18px;
+  padding-bottom: 20px;
+}
+
+form {
+  text-align: center;
 }
