@@ -62,11 +62,13 @@ function getWeatherHTMLString(city, state, temp, humidity, dewPoint, windSpeed, 
   // Add Wind Direction
   return `
   <section class="weather-page">
+  <nav>
     <button type="button" class="back-btn">Back</button>
     <h1>Location</h1>
-    <p>${city}, ${state}</p>
+  </nav>
+    <p class="city-state">${city}, ${state}</p>
     <div class="box">
-      <canvas id="icon1" width="125" height="125"></canvas>
+      <canvas id="icon1" width="100" height="100"></canvas>
     </div>
     <div class="box">
       <h2>Temperature</h2>

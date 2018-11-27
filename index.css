@@ -11,8 +11,8 @@ body {
   padding: 30px;
   max-width: 600px;
 }
- /* Button not working */
-.back-btn {
+
+button {
   font-size: 20px;
   border-color: white;
   background-color: #2c0d42;
@@ -29,6 +29,10 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  text-align: center;
+}
+
 p {
   font-family: 'Source Code Pro', monospace;
 }
@@ -41,4 +45,50 @@ label {
 
 form {
   text-align: center;
+  display: block;
 }
+
+.city-state {
+  text-align: center;
+}
+
+.box {
+  margin: auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+/* 
+Input Label Alignment
+Breakpoints
+Desktop boxes
+Box outlines
+Proper padding
+Make location and back button next to each other
+ */
+
+ nav {
+   display: block;
+ }
+
+ @media only screen and (max-width: 480px) {
+  label {
+     display: block;
+   }
+   .zipcode {
+    display: block;
+    margin: 0 auto;
+  }
+  .start-page{
+    display:block;
+  }
+ }
+
+ @media only screen and (min-width: 680px) {
+   .box {
+     width: 50%;
+     float: left;
+     height: 180px;
+   }
+ }
