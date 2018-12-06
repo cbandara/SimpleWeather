@@ -52,6 +52,7 @@ function getStartHtmlString() {
       <input type="text" id="zipcode" class="zipcode">
       <button type="submit">Search</button>
       <div role="alert">
+      <p>Unable to submit request</p>
       </div>
     </form>
   </section>`
@@ -97,7 +98,12 @@ function handleFormSubmit(event) {
   event.preventDefault();
   const queryTarget = $(event.currentTarget).find('.zipcode');
   const zipCode = queryTarget.val()
-  zipCodeToLocation(zipCode);
+  if (zipCode.length === 5) {
+    zipCodeToLocation(zipCode)
+  }
+  else {
+
+  }  
 }
 
 $(function onLoad() { 
