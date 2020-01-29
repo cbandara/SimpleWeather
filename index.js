@@ -6,19 +6,19 @@ const ZIP_CODE_API_KEY = `EeZHEYnpQzjZPRGvjQqmd5pzWcAOu4DJXv9lsr0fPwHxHhf9g0CRWc
 // Add function to find User location
 
 function zipCodeToLocation(zip) {
-  const zipLink = `https://cors.io/?https://www.zipcodeapi.com/rest/${ZIP_CODE_API_KEY}/info.json/${zip}/degrees`;
-  $.getJSON(zipLink,function(data) {
-  let longitude = data.lng;
-  let latitude = data.lat;
-  let city = data.city;
-  let state = data.state;
-  darkSkyAPI(latitude, longitude, city, state);
+  const zipLink = `https://www.zipcodeapi.com/rest/${ZIP_CODE_API_KEY}/info.json/${zip}/degrees`;
+  $.getJSON(zipLink, function (data) {
+    let longitude = data.lng;
+    let latitude = data.lat;
+    let city = data.city;
+    let state = data.state;
+    darkSkyAPI(latitude, longitude, city, state);
   });
 }
 
-function darkSkyAPI(lat,lng, city, state) {
-  const darkLink = `https://cors.io/?https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}`;
-  $.getJSON(darkLink, function(forecast) {
+function darkSkyAPI(lat, lng, city, state) {
+  const darkLink = `https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}`;
+  $.getJSON(darkLink, function (forecast) {
     let icn = forecast.currently.icon;
     let temp = forecast.currently.temperature;
     let humidity = forecast.currently.humidity * 100;
@@ -26,15 +26,15 @@ function darkSkyAPI(lat,lng, city, state) {
     let windSpeed = forecast.currently.windSpeed;
     let precip = forecast.currently.precipProbability * 100;
     // Add Wind Direction
-    
+
     renderPageHTML(getWeatherHTMLString(city, state, temp, humidity, dewPoint, windSpeed, precip));
 
     renderIcon(icn);
-  })  
+  })
 }
 
 function renderIcon(icn) {
-  let skycons = new Skycons({"color": "white"});
+  let skycons = new Skycons({ "color": "white" });
   skycons.add("icon1", icn);
   skycons.play();
 }
@@ -51,8 +51,7 @@ function getStartHtmlString() {
       <label for="location">Enter Zip Code</label>
       <input type="text" id="zipcode" class="zipcode">
       <button type="submit">Search</button>
-      <div role="alert">
-      <p>Unable to submit request</p>
+      <div class="v-alert" role="alert">
       </div>
     </form>
   </section>`
@@ -102,11 +101,11 @@ function handleFormSubmit(event) {
     zipCodeToLocation(zipCode)
   }
   else {
-
-  }  
+    $(".v-alert").html("<p>Not a valid zip code</p>")
+  }
 }
 
-$(function onLoad() { 
+$(function onLoad() {
   loadStartPage();
   $(`.content`).on('submit', '.location-form', handleFormSubmit)
   $(`.content`).on('click', '.back-btn', loadStartPage)
