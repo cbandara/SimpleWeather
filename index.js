@@ -2,7 +2,7 @@
 'Access-Control-Allow-Origin: *';
 
 const DARK_SKY_API_KEY = `5792f0c29e36c83cf573a2c0693ae098`;
-const ZIP_CODE_API_KEY = `EeZHEYnpQzjZPRGvjQqmd5pzWcAOu4DJXv9lsr0fPwHxHhf9g0CRWc02G6AamfKv`
+const ZIP_CODE_API_KEY = `36uemFF0IBBa12rNeWJAjsmpeiNsrhIdofMHkxSHWcUDdgcFRhzeHNEpfDZwHtAK`
 
 // Add function to find User location
 
