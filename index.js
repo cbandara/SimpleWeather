@@ -1,4 +1,5 @@
 'use strict';
+'Access-Control-Allow-Origin: *';
 
 const DARK_SKY_API_KEY = `5792f0c29e36c83cf573a2c0693ae098`;
 const ZIP_CODE_API_KEY = `EeZHEYnpQzjZPRGvjQqmd5pzWcAOu4DJXv9lsr0fPwHxHhf9g0CRWc02G6AamfKv`
@@ -6,7 +7,7 @@ const ZIP_CODE_API_KEY = `EeZHEYnpQzjZPRGvjQqmd5pzWcAOu4DJXv9lsr0fPwHxHhf9g0CRWc
 // Add function to find User location
 
 function zipCodeToLocation(zip) {
-  const zipLink = `https://www.zipcodeapi.com/rest/${ZIP_CODE_API_KEY}/info.json/${zip}/degrees`;
+  const zipLink = `https://cors-anywhere.herokuapp.com/https://www.zipcodeapi.com/rest/${ZIP_CODE_API_KEY}/info.json/${zip}/degrees`;
   $.getJSON(zipLink, function (data) {
     let longitude = data.lng;
     let latitude = data.lat;
@@ -17,7 +18,7 @@ function zipCodeToLocation(zip) {
 }
 
 function darkSkyAPI(lat, lng, city, state) {
-  const darkLink = `https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}`;
+  const darkLink = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${DARK_SKY_API_KEY}/${lat},${lng}`;
   $.getJSON(darkLink, function (forecast) {
     let icn = forecast.currently.icon;
     let temp = forecast.currently.temperature;
